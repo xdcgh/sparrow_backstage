@@ -21,3 +21,7 @@ html, body, #app {
 .el-pagination {
     margin-top: 15px;
 }
+
+a{
+    text-decoration-line: none;
+}
