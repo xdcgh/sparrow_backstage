@@ -1,8 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Login from '../components/user/Login'
 import Register from "../components/user/Register"
+
 import Home from "../components/Home"
+
+import AddFresh from "../components/fresh/AddFresh"
+import EditFresh from "../components/fresh/EditFresh"
+import Order from "../components/order/Order"
+import ShopInfo from "../components/shop/ShopInfo"
 
 Vue.use(VueRouter)
 
@@ -21,7 +28,26 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    redirect: '/addFresh',
+    children: [
+      {
+        path: '/addFresh',
+        component: AddFresh
+      },
+      {
+        path: '/editFresh',
+        component: EditFresh
+      },
+      {
+        path: '/order',
+        component: Order
+      },
+      {
+        path: '/shopInfo',
+        component: ShopInfo
+      },
+    ]
   }
 ]
 
@@ -35,7 +61,7 @@ router.beforeEach((to, from, next) => {
     return next()
   }
 
-  if (!window.sessionStorage.getItem('token')) {
+  if (!window.sessionStorage.getItem('cookie')) {
     return next('/login')
   }
 
