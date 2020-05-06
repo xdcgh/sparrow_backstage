@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import './plugins/element.js'
 
+// 全局样式
+import './assets/css/global.css'
+
 Vue.config.productionTip = false
 
 // axios 配置
