@@ -23,11 +23,11 @@
           </el-form-item>
 
           <el-form-item class="btns">
-            <el-button type="primary" @click="login">登录</el-button>
-            <el-button type="info" @click="resetLoginForm">重置</el-button>
+            <el-button type="primary" @click="login">登 录</el-button>
+            <el-button type="info" @click="resetLoginForm">重 置</el-button>
           </el-form-item>
 
-          <div class="register" @click="toRegister">注册店铺</div>
+          <div class="register" @click="toRegister">申请商铺</div>
         </el-form>
       </div>
     </div>

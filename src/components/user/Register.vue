@@ -2,7 +2,7 @@
   <div class="register_container">
     <div class="register_box">
       <div class="title-up">
-        注册商铺
+        申请商铺
       </div>
 
       <div>
@@ -10,8 +10,16 @@
           ref="registerFormRef" :model="registerForm" :rules="registerFormRules"
           label-width="80px" class="register_form">
 
+          <el-form-item label="店名" prop="name">
+            <el-input v-model="registerForm.name" prefix-icon="el-icon-s-goods"></el-input>
+          </el-form-item>
+
+          <el-form-item label="联系人" prop="name">
+            <el-input v-model="registerForm.shopKeeper" prefix-icon="el-icon-user-solid"></el-input>
+          </el-form-item>
+
           <el-form-item label="手机号" prop="phone">
-            <el-input v-model="registerForm.phone" prefix-icon="el-icon-user-solid"></el-input>
+            <el-input v-model="registerForm.phone" prefix-icon="el-icon-phone"></el-input>
           </el-form-item>
 
           <el-form-item label="密码" prop="password">
@@ -20,13 +28,36 @@
               prefix-icon="el-icon-lock"></el-input>
           </el-form-item>
 
-          <el-form-item label="手机号" prop="phone">
-            <el-input v-model="registerForm.phone" prefix-icon="el-icon-user-solid"></el-input>
+          <el-form-item label="确认密码" prop="confirmPassword">
+            <el-input
+              v-model="registerForm.confirmPassword" type="password"
+              prefix-icon="el-icon-lock"></el-input>
+          </el-form-item>
+
+
+          <el-form-item label="描述" prop="name">
+            <el-input
+              v-model="registerForm.description"
+              prefix-icon="el-icon-info"></el-input>
+          </el-form-item>
+
+          <el-form-item label="地区" prop="phone">
+            <template>
+              <el-select v-model="registerForm.areaId" placeholder="请选择">
+                <el-option
+                  v-for="item in areaList"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </template>
           </el-form-item>
 
           <el-form-item class="btns">
-            <el-button type="primary" @click="register">注册</el-button>
-            <el-button type="info" @click="resetregisterForm">重置</el-button>
+            <el-button type="info" @click="insertTestData">测试数据</el-button>
+            <el-button type="info" @click="goBack">返 回</el-button>
+            <el-button type="primary" @click="register">注 册</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -49,11 +80,17 @@
         callback(new Error('请输入合法的手机号'))
       }
 
+      let checkPassword = (rule, value, callback) => {
+        if (this.registerForm.password === value) {
+          // 校验通过
+          callback()
+        }
+
+        callback(new Error('两次密码不一致'))
+      }
+
       return {
-        registerForm: {
-          phone: '15622958503',
-          password: '123456'
-        },
+        registerForm: {},
         // 表单验证
         registerFormRules: {
           phone: [
@@ -69,32 +106,73 @@
           ],
           password: [
             {required: true, message: '请输入店铺密码', trigger: 'blur'},
-            {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'}
+            {min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur'}
+          ],
+          confirmPassword: [
+            {required: true, message: '请输入确认密码', trigger: 'blur'},
+            {
+              validator: checkPassword,
+              trigger: 'blur'
+            }
+          ],
+          name: [
+            {
+              required: true,
+              message: '此项不能为空',
+              trigger: 'blur'
+            }
           ]
-        }
+        },
+
+        // 地区列表
+        areaList: []
       }
     },
+    async created() {
+      await this.getAreaList()
+    },
     methods: {
-      // 表单重置按钮
-      resetregisterForm() {
-        this.$refs.registerFormRef.resetFields()
+      // 获取地区列表
+      async getAreaList() {
+        const res = await this.$http.get(`area`)
+
+        if (res.status !== 200) {
+          return this.$message.error('获取区域列表失败')
+        }
+
+        this.areaList = res.data
       },
+      // 返回按钮
+      goBack() {
+        this.$router.back()
+      },
+      // 注册
       register() {
-        this.$refs.registerFormRef.validate(async valid => {
+        this.$refs.registerFormRef.validate(valid => {
           if (!valid) {
             return
           }
 
-          const {data: res} = await this.$http.post('register', this.registerForm)
+          this.$http.post('register', this.registerForm).then(() => {
+            this.$message.success('申请成功，稍等管理员通知结果')
 
-          if (res.meta.status !== 200) {
-            return this.$message.error('登录失败')
-          }
-
-          this.$message.success('登录成功')
-
-          await this.$router.push('/home')
+            this.$router.back()
+          }, () => {
+            return this.$message.error('申请失败')
+          })
         })
+      },
+      // 填入测试数据
+      insertTestData() {
+        this.registerForm = {
+          name: "生鲜店铺",
+          shopKeeper: "许达成",
+          phone: '15645678912',
+          password: '123456',
+          confirmPassword: '123456',
+          description: '一间好店铺',
+          areaId: 441928
+        }
       }
     }
   }
@@ -111,7 +189,7 @@
 
   .register_box {
     width: 450px;
-    height: 660px;
+    height: 580px;
     background-color: #fff;
     border-radius: 3px;
     position: absolute;
@@ -130,7 +208,7 @@
 
   .register_form {
     position: absolute;
-    bottom: 60px;
+    margin-top: 20px;
     width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
