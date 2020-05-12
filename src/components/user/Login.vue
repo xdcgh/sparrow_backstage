@@ -44,6 +44,8 @@
         if (regMobile.test(value)) {
           // 校验通过
           callback()
+        }else if (value === "admin") {
+          callback()
         }
 
         callback(new Error('请输入合法的手机号'))
