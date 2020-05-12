@@ -37,14 +37,14 @@
 <script>
   export default {
     data() {
-      // 手机号验证规则
+      // 手机号和管理员验证规则
       let checkMobile = (rule, value, callback) => {
         const regMobile = /^1[3-9]\d{9}$/
 
         if (regMobile.test(value)) {
           // 校验通过
           callback()
-        }else if (value === "admin") {
+        } else if (value === "admin") {
           callback()
         }
 
@@ -82,23 +82,23 @@
         this.$refs.loginFormRef.resetFields()
       },
       login() {
-        this.$refs.loginFormRef.validate(async valid => {
+        this.$refs.loginFormRef.validate(valid => {
           if (!valid) {
             return
           }
 
-          const res = await this.$http.post('login', this.loginForm)
+          this.$http.post('login', this.loginForm).then(
+            res => {
+              window.sessionStorage.setItem('me', JSON.stringify(res.data))
+              window.sessionStorage.setItem('cookie', JSON.stringify(res.headers["Set-Cookie"]))
 
-          if (res.status !== 200) {
-            return this.$message.error('登录失败')
-          }
+              this.$message.success('登录成功')
 
-          window.sessionStorage.setItem('me', res.data)
-          window.sessionStorage.setItem('cookie', res.headers["Set-Cookie"])
-
-          this.$message.success('登录成功')
-
-          await this.$router.push('/home')
+              this.$router.push('/home')
+            },
+            () => {
+              this.$message.error('登录失败')
+            })
         })
       },
       toRegister() {

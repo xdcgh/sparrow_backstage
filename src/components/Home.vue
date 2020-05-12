@@ -80,13 +80,41 @@
       }
     },
     created () {
-      const activePath = window.sessionStorage.getItem('activePath')
+      this.setActivePath()
 
-      if (activePath) {
-        this.activePath = activePath
-      }
+      this.isAdmin()
     },
     methods: {
+      isAdmin() {
+        const me = JSON.parse(window.sessionStorage.getItem("me"))
+
+        if (me.phone === "admin") {
+          this.menuList = [
+            {
+              id: 1,
+              path: 'order',
+              pathname: "商铺审核"
+            },
+            {
+              id: 2,
+              path: 'addFresh',
+              pathname: "商铺管理"
+            }
+          ]
+
+          this.iconsObject ={
+            '1': 'el-icon-s-order',
+            '2': 'el-icon-s-shop'
+          }
+        }
+      },
+      setActivePath() {
+        const activePath = window.sessionStorage.getItem('activePath')
+
+        if (activePath) {
+          this.activePath = activePath
+        }
+      },
       async logout () {
         // await this.$http.get('/logout')
 
