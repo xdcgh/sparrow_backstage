@@ -1,7 +1,7 @@
 <template>
   <div class="register_container">
     <div class="register_box">
-      <div class="title">
+      <div class="title-up">
         注册商铺
       </div>
 
@@ -120,7 +120,7 @@
     -webkit-transform: translate(-50%, -50%);
   }
 
-  .title {
+  .title-up {
     display: flex;
     justify-content: center;
     align-items: center;

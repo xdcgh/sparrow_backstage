@@ -48,18 +48,18 @@
         menuList: [
           {
             id: 1,
+            path: 'order',
+            pathname: "订单管理"
+          },
+          {
+            id: 2,
             path: 'addFresh',
             pathname: "添加生鲜"
           },
           {
-            id: 2,
+            id: 3,
             path: 'editFresh',
             pathname: "生鲜管理"
-          },
-          {
-            id: 3,
-            path: 'order',
-            pathname: "订单管理"
           },
           {
             id: 4,
@@ -68,23 +68,27 @@
           },
         ],
         iconsObject: {
-          '1': 'el-icon-circle-plus',
-          '2': 'el-icon-s-goods',
-          '3': 'el-icon-s-order',
+          '1': 'el-icon-s-order',
+          '2': 'el-icon-circle-plus',
+          '3': 'el-icon-s-goods',
           '4': 'el-icon-info'
         },
         // 是否折叠
         isCollapse: false,
         // 激活的菜单选项
-        activePath: ''
+        activePath: '/order'
       }
     },
     created () {
-      this.activePath = window.sessionStorage.getItem('activePath')
+      const activePath = window.sessionStorage.getItem('activePath')
+
+      if (activePath) {
+        this.activePath = activePath
+      }
     },
     methods: {
       async logout () {
-        await this.$http.get('/logout')
+        // await this.$http.get('/logout')
 
         window.sessionStorage.clear()
 

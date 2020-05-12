@@ -2,7 +2,6 @@
   <div>
     <!--    面包屑导航区-->
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>生鲜管理</el-breadcrumb-item>
     </el-breadcrumb>
 
@@ -227,7 +226,7 @@
         // 记录总条数
         this.totalPage = res.data["totalCounts"]
       },
-      // pagesize 改变事件
+      // pageSize 改变事件
       handleSizeChange(newSize) {
         this.queryInfo.pageSize = newSize
 

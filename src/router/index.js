@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/home',
     component: Home,
-    redirect: '/editFresh',
+    redirect: '/order',
     children: [
       {
         path: '/addFresh',

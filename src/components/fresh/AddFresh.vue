@@ -7,7 +7,7 @@
     </el-breadcrumb>
 
     <el-card>
-      <el-row class="title">添加生鲜</el-row>
+      <el-row class="title-up">添加生鲜</el-row>
 
       <el-form ref="addFormRef" :model="addForm" :rules="editFormRules" label-width="80px">
         <el-form-item label="名称" prop="name">
@@ -181,7 +181,7 @@
 </script>
 
 <style lang="less" scoped>
-  .title {
+  .title-up {
     display: flex;
     align-items: center;
     justify-content: space-between;
