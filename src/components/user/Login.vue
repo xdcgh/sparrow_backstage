@@ -94,7 +94,11 @@
 
               this.$message.success('登录成功')
 
-              this.$router.push('/home')
+              if (this.loginForm.phone === "admin") {
+                this.$router.push('/shopApplyList')
+              } else {
+                this.$router.push('/home')
+              }
             },
             () => {
               this.$message.error('登录失败')

@@ -92,12 +92,12 @@
           this.menuList = [
             {
               id: 1,
-              path: 'order',
+              path: 'shopApplyList',
               pathname: "商铺审核"
             },
             {
               id: 2,
-              path: 'addFresh',
+              path: 'shopList',
               pathname: "商铺管理"
             }
           ]

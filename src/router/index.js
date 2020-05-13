@@ -11,6 +11,9 @@ import EditFresh from "../components/fresh/EditFresh"
 import Order from "../components/order/Order"
 import ShopInfo from "../components/shop/ShopInfo"
 
+import ShopApplyList from "../components/shop/ShopApplyList"
+import ShopList from "../components/shop/ShopList"
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -46,6 +49,14 @@ const routes = [
       {
         path: '/shopInfo',
         component: ShopInfo
+      },
+      {
+        path: '/shopApplyList',
+        component: ShopApplyList
+      },
+      {
+        path: '/shopList',
+        component: ShopList
       },
     ]
   }
