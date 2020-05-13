@@ -99,12 +99,18 @@
               id: 2,
               path: 'shopList',
               pathname: "商铺管理"
+            },
+            {
+              id: 3,
+              path: 'userList',
+              pathname: '用户管理'
             }
           ]
 
           this.iconsObject ={
             '1': 'el-icon-s-order',
-            '2': 'el-icon-s-shop'
+            '2': 'el-icon-s-shop',
+            '3': 'el-icon-user-solid'
           }
         }
       },

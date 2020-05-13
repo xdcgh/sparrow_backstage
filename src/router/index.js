@@ -13,6 +13,7 @@ import ShopInfo from "../components/shop/ShopInfo"
 
 import ShopApplyList from "../components/shop/ShopApplyList"
 import ShopList from "../components/shop/ShopList"
+import UserList from "../components/user/UserList"
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,10 @@ const routes = [
         path: '/shopList',
         component: ShopList
       },
+      {
+        path: '/userList',
+        component: UserList
+      }
     ]
   }
 ]
